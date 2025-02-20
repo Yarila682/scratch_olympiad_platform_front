@@ -27,7 +27,7 @@ function StudentsTab({
             },
             variables: {
                 active: isActive,
-                roles: [Role.Student],
+                roles: [Role.User],
             }
         }
     );
@@ -48,7 +48,7 @@ function StudentsTab({
                     query: GET_ALL_USERS,
                     variables: {
                         active: isActive,
-                        roles: [Role.Student],
+                        roles: [Role.User],
                     }
                 },
             ]
@@ -59,7 +59,7 @@ function StudentsTab({
         navigate(PROFILE_PAGE_ROUTE, {
             state: {
                 userId,
-                userRole: Role.Student,
+                userRole: Role.User,
             },
         })
         return

@@ -29,7 +29,11 @@ export const ME = gql`
                 fullName
                 fullNameNative
                 city
-                country
+                country {
+                    id          # Now selecting country ID explicitly
+                    name        # Now selecting country name explicitly
+                    hasRegions  # Optional: Include if needed
+                }
                 birthdate 
                 createdAt
                 role
@@ -147,6 +151,7 @@ export const GET_COUNTRIES = gql`
   query GetAllCountries {
   GetAllCountries {
     countries {
+      id
       name
     }
     countRows

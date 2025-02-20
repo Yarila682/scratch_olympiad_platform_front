@@ -5,10 +5,10 @@ export enum Themes {
 
 export enum Roles {
     Anonymous = 'Anonymous',
-    Student = 'Student',
+    User = 'User',
     Parent = 'Parent',
     Teacher = 'Teacher',
-    UnitAdmin = 'UnitAdmin',
+    Admin = 'Admin',
     SuperAdmin = 'SuperAdmin',
 }
 

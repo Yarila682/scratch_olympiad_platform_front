@@ -73,8 +73,8 @@ export const CREATE_PROJECT_PAGE = gql`
 `;
 
 export const CONFIRM_ACTIVATION = gql`
-    mutation ConfirmActivation($activationLink: String!){
-        ConfirmActivation(activationLink: $activationLink) {
+    mutation ConfirmActivation($activationToken: String!){
+        ConfirmActivation(activationToken: $activationToken) {
             ... on SignInResponse {
                 accessToken
                 refreshToken
@@ -84,8 +84,8 @@ export const CONFIRM_ACTIVATION = gql`
 `;
 
 export const RESET_PASSWORD = gql`
-    mutation ResetPassword($resetLink: String!){
-        ResetPassword(resetLink: $resetLink) {
+    mutation ResetPassword($resetToken: String!){
+        ResetPassword(resetToken: $resetToken) {
             ok
         }
     }

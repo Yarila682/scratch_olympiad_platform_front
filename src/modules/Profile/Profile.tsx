@@ -32,7 +32,7 @@ function ProfileModule() {
         data?: ProjectPageHttpList;
         removal: boolean;
     }, keyof WithPaginationProps>) => JSX.Element;
-    if (peekUserRole === Role.Student) {
+    if (peekUserRole === Role.User) {
         ProjectPageList = withPaginationLocal(ProjectPagesList, 10);
     }
     const Profile = peekUserId ? (
@@ -49,7 +49,7 @@ function ProfileModule() {
                     </Col>
                     <Col xs={23} sm={23} md={23} lg={12} xl={12}>
                         {
-                            peekUserRole === Role.Student &&
+                            peekUserRole === Role.User &&
                             <ProjectPageList
                                 data={GetAllProjectPages.data?.GetAllProjectPagesByAuthorId}
                                 loading={GetAllProjectPages.loading}

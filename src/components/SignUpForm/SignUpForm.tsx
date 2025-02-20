@@ -58,7 +58,7 @@ function SignUpForm() {
                     fullName: inputs.fullName,
                     fullNameNative: inputs.fullNameNative,
                     city: inputs.city,
-                    country: inputs.country,
+                    countryId: inputs.countryId,
                     birthdate: formattedBirthDate,
                 }
             }
@@ -153,13 +153,13 @@ function SignUpForm() {
                 />
             </Form.Item>
             <Form.Item
-                name="country"
+                name="countryId"
                 rules={[{ required: true, message: 'Please select your country!' }]}
 >
                 <Select placeholder="Select your country" size="middle" loading={!data}>
                     {data?.GetAllCountries?.countries?.length ? (
-                        data.GetAllCountries.countries.map((country: { name: string }) => (
-                            <Option key={country.name} value={country.name}>
+                        data.GetAllCountries.countries.map((country: { id: string; name: string }) => (
+                            <Option key={country.id} value={country.id}>
                                 {country.name}
                             </Option>
                         ))

@@ -67,7 +67,7 @@ function App() {
                             <Route
                                 path={PROFILE_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ProfilePage />
                                     </ProtectedRoute>
                                 }
@@ -75,7 +75,7 @@ function App() {
                             <Route
                                 path={PROJECTS_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ProjectsPage />
                                     </ProtectedRoute>
                                 }
@@ -83,7 +83,7 @@ function App() {
                             <Route
                                 path={APPLICATIONS_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ApplicationsPage />
                                     </ProtectedRoute>
                                 }
@@ -107,7 +107,7 @@ function App() {
                             <Route
                                 path={PROJECT_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ProjectPage />
                                     </ProtectedRoute>
                                 }
@@ -115,7 +115,7 @@ function App() {
                             <Route
                                 path={APPLICATION_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ApplicationPage />
                                     </ProtectedRoute>
                                 }
@@ -131,7 +131,7 @@ function App() {
                             <Route
                                 path={APPLICATION_CREATION_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ApplicationCreationPage />
                                     </ProtectedRoute>
                                 }

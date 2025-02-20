@@ -21,11 +21,11 @@ function StudentsList() {
                 onCancel={() => setOpenAddStudent(false)}
                 footer={[]}
             >
-                <CreateUser role={Role.Student} refetchQueries={[{
+                <CreateUser role={Role.User} refetchQueries={[{
                     query: GET_ALL_USERS,
                     variables: {
                         active: true,
-                        roles: [Role.Student],
+                        roles: [Role.User],
                     }
                 } as QueryBaseOptions]}/>
             </Modal>

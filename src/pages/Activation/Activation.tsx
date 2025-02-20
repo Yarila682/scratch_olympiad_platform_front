@@ -12,9 +12,9 @@ function ActivationPage() {
     const navigate = useNavigate();
 
     const query = new URLSearchParams(location.search);
-    const activationLink = query.get('activationLink')
+    const activationToken = query.get('activationToken')
 
-    const [confirmActivation, { loading }] = useMutation<{ ConfirmActivation: SignInResponse }, { activationLink: string }>(
+    const [confirmActivation, { loading }] = useMutation<{ ConfirmActivation: SignInResponse }, { activationToken: string }>(
         CONFIRM_ACTIVATION,
         {
             onError: (error) => {
@@ -30,13 +30,13 @@ function ActivationPage() {
                 navigate(PROFILE_PAGE_ROUTE)
             },
             variables: {
-                activationLink: activationLink || ''
+                activationToken: activationToken || ''
             }
         }
     );
     useEffect(() => {
         confirmActivation();
-    }, [activationLink, confirmActivation])
+    }, [activationToken, confirmActivation])
     return (
         <>
             {

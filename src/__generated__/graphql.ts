@@ -398,7 +398,7 @@ export type Response = {
 export enum Role {
   Anonymous = 'Anonymous',
   Parent = 'Parent',
-  Student = 'Student',
+  User = 'User',
   SuperAdmin = 'SuperAdmin',
   Teacher = 'Teacher',
   UnitAdmin = 'UnitAdmin'
@@ -423,7 +423,7 @@ export type SignInResponse = {
 export type SignUp = {
   birthdate: Scalars['Timestamp']['input'];
   city: Scalars['String']['input'];
-  country: Scalars['String']['input'];
+  countryId: Scalars['String']['input'];
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
   fullNameNative: Scalars['String']['input'];
