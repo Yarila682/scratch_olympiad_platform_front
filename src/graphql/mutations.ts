@@ -149,3 +149,11 @@ export const CREATE_APPLICATION = gql`
         }
     }
 `;
+
+export const EXPORT_ALL_APPLICATIONS = gql`
+  mutation ExportAllApplications {
+    ExportAllApplications {
+      ok
+    }
+  }
+`;

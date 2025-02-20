@@ -48,21 +48,6 @@ export type ApplicationHttpList = {
   countRows: Scalars['Int']['output'];
 };
 
-export type ApplicationPayloadHttp = {
-  __typename?: 'ApplicationPayloadHttp';
-  algorithmicTaskFile: Scalars['String']['output'];
-  algorithmicTaskLink: Scalars['String']['output'];
-  author: UserHttp;
-  creativeTaskFile: Scalars['String']['output'];
-  creativeTaskLink: Scalars['String']['output'];
-  engineeringTaskCloudLink: Scalars['String']['output'];
-  engineeringTaskFile: Scalars['String']['output'];
-  engineeringTaskVideo: Scalars['String']['output'];
-  engineeringTaskVideoCloudLink: Scalars['String']['output'];
-  nomination: Scalars['String']['output'];
-  note: Scalars['String']['output'];
-};
-
 export type CountryHttp = {
   __typename?: 'CountryHttp';
   createdAt: Scalars['Timestamp']['output'];
@@ -140,6 +125,7 @@ export type Mutation = {
   DeleteParentRel: Response;
   DeleteProjectPage: Response;
   DeleteUser: Response;
+  ExportAllApplications: Response;
   ForgotPassword: Response;
   RefreshToken: SignInResponse;
   ResetPassword: Response;
