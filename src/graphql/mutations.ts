@@ -99,33 +99,9 @@ export const SET_ACTIVATION_BY_LINK = gql`
     }
 `;
 
-export const UPDATE_PROJECT_PAGE = gql`
-    mutation UpdateProjectPage($input: UpdateProjectPage!){
-        UpdateProjectPage(input: $input) {
-            id
-        }
-    }
-`;
-
-export const DELETE_PROJECT_PAGE = gql`
-    mutation DeleteProjectPage($id: ID!){
-        DeleteProjectPage(id: $id) {
-            ok
-        }
-    }
-`;
-
 export const DELETE_USER = gql`
     mutation DeleteUser($id: ID!){
         DeleteUser(id: $id) {
-            ok
-        }
-    }
-`;
-
-export const SET_IS_BANNED = gql`
-    mutation SetIsBanned($projectPageId: ID!, $isBanned: Boolean!){
-        SetIsBanned(projectPageId: $projectPageId, isBanned: $isBanned) {
             ok
         }
     }
