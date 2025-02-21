@@ -95,7 +95,7 @@ function ProfileCard({
                                 fullName: inputs.fullName,
                                 fullNameNative: inputs.fullNameNative,
                                 city: inputs.city,
-                                country: inputs.country,
+                                countryId: inputs.countryId,
                                 birthdate: inputs.birthdate,
                             }
                         }
@@ -108,7 +108,7 @@ function ProfileCard({
                     fullName: profileData?.fullName,
                     fullNameNative: profileData?.fullNameNative,
                     city: profileData?.city,
-                    country: profileData?.country,
+                    country: profileData?.country?.name,
                     birthdate: profileData?.birthdate,
                 }}
             >
