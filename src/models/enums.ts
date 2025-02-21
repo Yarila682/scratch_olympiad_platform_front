@@ -11,9 +11,3 @@ export enum Roles {
     Admin = 'Admin',
     SuperAdmin = 'SuperAdmin',
 }
-
-export enum ProjectPageStatus {
-    Shared = 'Открытый',
-    Private = 'Приватный',
-    Banned = 'Забанен'
-}

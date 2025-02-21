@@ -55,23 +55,6 @@ export const SET_USER_IS_ACTIVE = gql`
     }
 `;
 
-export const CREATE_PROJECT_PAGE = gql`
-    mutation {
-        CreateProjectPage{
-            id
-            createdAt
-            updatedAt
-            authorId
-            projectId
-            projectUpdatedAt
-            title
-            notes
-            linkToScratch
-            isShared
-        }
-    }
-`;
-
 export const CONFIRM_ACTIVATION = gql`
     mutation ConfirmActivation($activationToken: String!){
         ConfirmActivation(activationToken: $activationToken) {

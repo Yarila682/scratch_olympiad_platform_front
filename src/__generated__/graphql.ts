@@ -17,13 +17,6 @@ export type Scalars = {
   Timestamp: { input: any; output: any; }
 };
 
-export type AbsoluteMediaHttp = {
-  __typename?: 'AbsoluteMediaHttp';
-  id: Scalars['ID']['output'];
-  uri: Scalars['String']['output'];
-  uri_absolute: Scalars['String']['output'];
-};
-
 export type ApplicationHttp = {
   __typename?: 'ApplicationHttp';
   algorithmicTaskFile: Scalars['String']['output'];
@@ -51,6 +44,7 @@ export type ApplicationHttpList = {
 export type CountryHttp = {
   __typename?: 'CountryHttp';
   createdAt: Scalars['Timestamp']['output'];
+  hasRegions: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   updatedAt: Scalars['Timestamp']['output'];
@@ -62,85 +56,61 @@ export type CountryHttpList = {
   countries: Array<CountryHttp>;
 };
 
-export type CourseApiMediaCollectionHttp = {
-  __typename?: 'CourseAPIMediaCollectionHttp';
-  banner_image?: Maybe<AbsoluteMediaHttp>;
-  course_image?: Maybe<MediaHttp>;
-  course_video?: Maybe<MediaHttp>;
+export type EventDetailsHttp = {
+  __typename?: 'EventDetailsHttp';
+  createdAt: Scalars['Timestamp']['output'];
+  description: Scalars['String']['output'];
+  endDate: Scalars['Timestamp']['output'];
   id: Scalars['ID']['output'];
-  image?: Maybe<ImageHttp>;
-};
-
-export type CourseHttp = {
-  __typename?: 'CourseHttp';
-  blocks_url: Scalars['String']['output'];
-  course_id: Scalars['String']['output'];
-  effort: Scalars['String']['output'];
-  end: Scalars['Timestamp']['output'];
-  enrollment_end: Scalars['Timestamp']['output'];
-  enrollment_start: Scalars['Timestamp']['output'];
-  hidden: Scalars['Boolean']['output'];
-  id: Scalars['ID']['output'];
-  invitation_only: Scalars['Boolean']['output'];
-  media: CourseApiMediaCollectionHttp;
-  mobile_available: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
-  number: Scalars['String']['output'];
-  org: Scalars['String']['output'];
-  overview?: Maybe<Scalars['String']['output']>;
-  pacing: Scalars['String']['output'];
-  short_description: Scalars['String']['output'];
-  start: Scalars['Timestamp']['output'];
-  start_display: Scalars['String']['output'];
-  start_type: Scalars['String']['output'];
+  startDate: Scalars['Timestamp']['output'];
+  updatedAt: Scalars['Timestamp']['output'];
 };
 
-export type CoursesListHttp = {
-  __typename?: 'CoursesListHttp';
+export type EventHttp = {
+  __typename?: 'EventHttp';
+  createdAt: Scalars['Timestamp']['output'];
+  endDate: Scalars['Timestamp']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  startDate: Scalars['Timestamp']['output'];
+  updatedAt: Scalars['Timestamp']['output'];
+};
+
+export type EventHttpList = {
+  __typename?: 'EventHttpList';
   countRows: Scalars['Int']['output'];
-  courses: Array<CourseHttp>;
+  events: Array<EventHttp>;
 };
 
-export type ImageHttp = {
-  __typename?: 'ImageHttp';
-  id: Scalars['ID']['output'];
-  large: Scalars['String']['output'];
-  raw: Scalars['String']['output'];
-  small: Scalars['String']['output'];
-};
-
-export type MediaHttp = {
-  __typename?: 'MediaHttp';
-  id: Scalars['ID']['output'];
-  uri: Scalars['String']['output'];
-};
+export enum EventRole {
+  Expert = 'Expert',
+  Moderator = 'Moderator',
+  Organizer = 'Organizer'
+}
 
 export type Mutation = {
   __typename?: 'Mutation';
   ConfirmActivation: SignInResponse;
   CreateApplication: ApplicationHttp;
-  CreateParentRel: Response;
-  CreateProjectPage: ProjectPageHttp;
+  CreateEvent: EventDetailsHttp;
   CreateUser: UserHttp;
-  DeleteParentRel: Response;
-  DeleteProjectPage: Response;
   DeleteUser: Response;
   ExportAllApplications: Response;
   ForgotPassword: Response;
   RefreshToken: SignInResponse;
   ResetPassword: Response;
   SetActivationByLink: Response;
-  SetIsBanned: Response;
   SetUserIsActive: Response;
   SignIn: SignInResponse;
   SignUp: Response;
-  UpdateProjectPage: ProjectPageHttp;
+  UpdateEvent: EventDetailsHttp;
   UpdateUser: UserHttp;
 };
 
 
 export type MutationConfirmActivationArgs = {
-  activationLink: Scalars['String']['input'];
+  activationToken: Scalars['String']['input'];
 };
 
 
@@ -149,25 +119,13 @@ export type MutationCreateApplicationArgs = {
 };
 
 
-export type MutationCreateParentRelArgs = {
-  childID: Scalars['ID']['input'];
-  parentId: Scalars['ID']['input'];
+export type MutationCreateEventArgs = {
+  input: NewEvent;
 };
 
 
 export type MutationCreateUserArgs = {
   input: NewUser;
-};
-
-
-export type MutationDeleteParentRelArgs = {
-  childID: Scalars['ID']['input'];
-  parentId: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteProjectPageArgs = {
-  id: Scalars['ID']['input'];
 };
 
 
@@ -187,18 +145,12 @@ export type MutationRefreshTokenArgs = {
 
 
 export type MutationResetPasswordArgs = {
-  resetLink: Scalars['String']['input'];
+  resetToken: Scalars['String']['input'];
 };
 
 
 export type MutationSetActivationByLinkArgs = {
   activationByLink: Scalars['Boolean']['input'];
-};
-
-
-export type MutationSetIsBannedArgs = {
-  isBanned: Scalars['Boolean']['input'];
-  projectPageId: Scalars['ID']['input'];
 };
 
 
@@ -218,8 +170,8 @@ export type MutationSignUpArgs = {
 };
 
 
-export type MutationUpdateProjectPageArgs = {
-  input: UpdateProjectPage;
+export type MutationUpdateEventArgs = {
+  input: UpdateEvent;
 };
 
 
@@ -240,14 +192,22 @@ export type NewApplication = {
   note?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type NewEvent = {
+  description: Scalars['String']['input'];
+  endDate: Scalars['Timestamp']['input'];
+  name: Scalars['String']['input'];
+  startDate: Scalars['Timestamp']['input'];
+};
+
 export type NewUser = {
   birthdate: Scalars['Timestamp']['input'];
   city: Scalars['String']['input'];
-  country: Scalars['String']['input'];
+  countryId: Scalars['ID']['input'];
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
   fullNameNative: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  regionId?: InputMaybe<Scalars['ID']['input']>;
   role: Role;
 };
 
@@ -255,11 +215,12 @@ export type NewUserResponse = {
   __typename?: 'NewUserResponse';
   birthdate: Scalars['Timestamp']['output'];
   city: Scalars['String']['output'];
-  country: Scalars['String']['output'];
+  countryId: Scalars['ID']['output'];
   email: Scalars['String']['output'];
   fullName: Scalars['String']['output'];
   fullNameNative: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  regionId?: Maybe<Scalars['ID']['output']>;
   role: Scalars['Int']['output'];
 };
 
@@ -279,42 +240,16 @@ export type NominationHttpList = {
   nominations: Array<NominationHttp>;
 };
 
-export type ProjectPageHttp = {
-  __typename?: 'ProjectPageHttp';
-  authorId: Scalars['ID']['output'];
-  createdAt: Scalars['Timestamp']['output'];
-  id: Scalars['ID']['output'];
-  instruction: Scalars['String']['output'];
-  isBanned: Scalars['Boolean']['output'];
-  isShared: Scalars['Boolean']['output'];
-  linkToScratch: Scalars['String']['output'];
-  notes: Scalars['String']['output'];
-  projectId: Scalars['ID']['output'];
-  projectUpdatedAt: Scalars['Timestamp']['output'];
-  title: Scalars['String']['output'];
-  updatedAt: Scalars['Timestamp']['output'];
-};
-
-export type ProjectPageHttpList = {
-  __typename?: 'ProjectPageHttpList';
-  countRows: Scalars['Int']['output'];
-  projectPages: Array<ProjectPageHttp>;
-};
-
 export type Query = {
   __typename?: 'Query';
   GetAllApplications: ApplicationHttpList;
   GetAllCountries: CountryHttpList;
+  GetAllEvents: EventHttpList;
   GetAllNominations: NominationHttpList;
-  GetAllProjectPagesByAccessToken: ProjectPageHttpList;
-  GetAllProjectPagesByAuthorId: ProjectPageHttpList;
   GetAllUsers: UsersList;
   GetApplicationById: ApplicationHttp;
-  GetChildrenByParent: UsersList;
-  GetCourseById: CourseHttp;
-  GetCoursesByUser: CoursesListHttp;
-  GetParentsByChild: UsersList;
-  GetProjectPageById: ProjectPageHttp;
+  GetEventById: EventDetailsHttp;
+  GetRegionsByCountryId: RegionHttpList;
   GetSettings: Settings;
   GetUserByAccessToken: UserHttp;
   GetUserById: UserHttp;
@@ -334,20 +269,13 @@ export type QueryGetAllCountriesArgs = {
 };
 
 
+export type QueryGetAllEventsArgs = {
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type QueryGetAllNominationsArgs = {
-  page?: InputMaybe<Scalars['Int']['input']>;
-  pageSize?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryGetAllProjectPagesByAccessTokenArgs = {
-  page?: InputMaybe<Scalars['Int']['input']>;
-  pageSize?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryGetAllProjectPagesByAuthorIdArgs = {
-  id: Scalars['ID']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -366,28 +294,33 @@ export type QueryGetApplicationByIdArgs = {
 };
 
 
-export type QueryGetChildrenByParentArgs = {
-  parentId: Scalars['ID']['input'];
-};
-
-
-export type QueryGetCourseByIdArgs = {
+export type QueryGetEventByIdArgs = {
   id: Scalars['ID']['input'];
 };
 
 
-export type QueryGetParentsByChildArgs = {
-  childId: Scalars['ID']['input'];
-};
-
-
-export type QueryGetProjectPageByIdArgs = {
-  id: Scalars['ID']['input'];
+export type QueryGetRegionsByCountryIdArgs = {
+  countryId: Scalars['ID']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryGetUserByIdArgs = {
   id: Scalars['ID']['input'];
+};
+
+export type RegionHttp = {
+  __typename?: 'RegionHttp';
+  countryId: Scalars['ID']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type RegionHttpList = {
+  __typename?: 'RegionHttpList';
+  countRows: Scalars['Int']['output'];
+  regions: Array<RegionHttp>;
 };
 
 export type Response = {
@@ -396,12 +329,10 @@ export type Response = {
 };
 
 export enum Role {
+  Admin = 'Admin',
   Anonymous = 'Anonymous',
-  Parent = 'Parent',
-  User = 'User',
   SuperAdmin = 'SuperAdmin',
-  Teacher = 'Teacher',
-  UnitAdmin = 'UnitAdmin'
+  User = 'User'
 }
 
 export type Settings = {
@@ -423,36 +354,38 @@ export type SignInResponse = {
 export type SignUp = {
   birthdate: Scalars['Timestamp']['input'];
   city: Scalars['String']['input'];
-  countryId: Scalars['String']['input'];
+  countryId: Scalars['ID']['input'];
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
   fullNameNative: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  regionId?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type UpdateProjectPage = {
+export type UpdateEvent = {
+  description: Scalars['String']['input'];
+  endDate: Scalars['Timestamp']['input'];
   id: Scalars['ID']['input'];
-  instruction: Scalars['String']['input'];
-  isShared: Scalars['Boolean']['input'];
-  notes: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  startDate: Scalars['Timestamp']['input'];
 };
 
 export type UpdateUser = {
   birthdate: Scalars['Timestamp']['input'];
   city: Scalars['String']['input'];
-  country: Scalars['String']['input'];
+  countryId: Scalars['ID']['input'];
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
   fullNameNative: Scalars['String']['input'];
   id: Scalars['ID']['input'];
+  regionId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UserHttp = {
   __typename?: 'UserHttp';
   birthdate: Scalars['Timestamp']['output'];
   city: Scalars['String']['output'];
-  country: Scalars['String']['output'];
+  country: CountryHttp;
   createdAt: Scalars['Timestamp']['output'];
   email: Scalars['String']['output'];
   fullName: Scalars['String']['output'];
@@ -460,6 +393,7 @@ export type UserHttp = {
   id: Scalars['ID']['output'];
   isActive: Scalars['Boolean']['output'];
   password: Scalars['String']['output'];
+  region?: Maybe<RegionHttp>;
   role: Role;
   updatedAt: Scalars['Timestamp']['output'];
 };
@@ -514,14 +448,14 @@ export type SetUserIsActiveMutationVariables = Exact<{
 export type SetUserIsActiveMutation = { __typename?: 'Mutation', SetUserIsActive: { __typename?: 'Response', ok: boolean } };
 
 export type ConfirmActivationMutationVariables = Exact<{
-  activationLink: Scalars['String']['input'];
+  activationToken: Scalars['String']['input'];
 }>;
 
 
 export type ConfirmActivationMutation = { __typename?: 'Mutation', ConfirmActivation: { __typename?: 'SignInResponse', accessToken: string, refreshToken: string } };
 
 export type ResetPasswordMutationVariables = Exact<{
-  resetLink: Scalars['String']['input'];
+  resetToken: Scalars['String']['input'];
 }>;
 
 
@@ -534,34 +468,12 @@ export type SetActivationByLinkMutationVariables = Exact<{
 
 export type SetActivationByLinkMutation = { __typename?: 'Mutation', SetActivationByLink: { __typename?: 'Response', ok: boolean } };
 
-export type UpdateProjectPageMutationVariables = Exact<{
-  input: UpdateProjectPage;
-}>;
-
-
-export type UpdateProjectPageMutation = { __typename?: 'Mutation', UpdateProjectPage: { __typename?: 'ProjectPageHttp', id: string } };
-
-export type DeleteProjectPageMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type DeleteProjectPageMutation = { __typename?: 'Mutation', DeleteProjectPage: { __typename?: 'Response', ok: boolean } };
-
 export type DeleteUserMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
 export type DeleteUserMutation = { __typename?: 'Mutation', DeleteUser: { __typename?: 'Response', ok: boolean } };
-
-export type SetIsBannedMutationVariables = Exact<{
-  projectPageId: Scalars['ID']['input'];
-  isBanned: Scalars['Boolean']['input'];
-}>;
-
-
-export type SetIsBannedMutation = { __typename?: 'Mutation', SetIsBanned: { __typename?: 'Response', ok: boolean } };
 
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -577,12 +489,17 @@ export type CreateApplicationMutationVariables = Exact<{
 
 export type CreateApplicationMutation = { __typename?: 'Mutation', CreateApplication: { __typename?: 'ApplicationHttp', id: string, nomination: string } };
 
+export type ExportAllApplicationsMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ExportAllApplicationsMutation = { __typename?: 'Mutation', ExportAllApplications: { __typename?: 'Response', ok: boolean } };
+
 export type GetUserByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', GetUserById: { __typename?: 'UserHttp', id: string, email: string, fullName: string, fullNameNative: string, city: string, country: string, birthdate: any, createdAt: any, role: Role, updatedAt: any, isActive: boolean } };
+export type GetUserByIdQuery = { __typename?: 'Query', GetUserById: { __typename?: 'UserHttp', id: string, email: string, fullName: string, fullNameNative: string, city: string, birthdate: any, createdAt: any, role: Role, updatedAt: any, isActive: boolean, country: { __typename?: 'CountryHttp', id: string, name: string, hasRegions: boolean } } };
 
 export type GetAllUsersQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>;
@@ -594,14 +511,6 @@ export type GetAllUsersQueryVariables = Exact<{
 
 export type GetAllUsersQuery = { __typename?: 'Query', GetAllUsers: { __typename?: 'UsersList', countRows: number, users: Array<{ __typename?: 'UserHttp', id: string, email: string, fullName: string, fullNameNative: string }> } };
 
-export type GetAllProjectPagesByAccessTokenQueryVariables = Exact<{
-  page?: InputMaybe<Scalars['Int']['input']>;
-  pageSize?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type GetAllProjectPagesByAccessTokenQuery = { __typename?: 'Query', GetAllProjectPagesByAccessToken: { __typename?: 'ProjectPageHttpList', countRows: number, projectPages: Array<{ __typename?: 'ProjectPageHttp', id: string, title: string, isShared: boolean, isBanned: boolean }> } };
-
 export type GetAllApplicationsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
@@ -609,22 +518,6 @@ export type GetAllApplicationsQueryVariables = Exact<{
 
 
 export type GetAllApplicationsQuery = { __typename?: 'Query', GetAllApplications: { __typename?: 'ApplicationHttpList', countRows: number, applications: Array<{ __typename?: 'ApplicationHttp', authorId: string, nomination: string, id: string }> } };
-
-export type GetAllProjectPagesByAuthorIdQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
-  page?: InputMaybe<Scalars['Int']['input']>;
-  pageSize?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type GetAllProjectPagesByAuthorIdQuery = { __typename?: 'Query', GetAllProjectPagesByAuthorId: { __typename?: 'ProjectPageHttpList', countRows: number, projectPages: Array<{ __typename?: 'ProjectPageHttp', id: string, title: string, isShared: boolean, isBanned: boolean }> } };
-
-export type GetProjectPageByIdQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type GetProjectPageByIdQuery = { __typename?: 'Query', GetProjectPageById: { __typename?: 'ProjectPageHttp', id: string, authorId: string, createdAt: any, updatedAt: any, projectId: string, title: string, instruction: string, notes: string, linkToScratch: string, isShared: boolean, isBanned: boolean, projectUpdatedAt: any } };
 
 export type GetApplicationByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -636,7 +529,7 @@ export type GetApplicationByIdQuery = { __typename?: 'Query', GetApplicationById
 export type GetAllCountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCountriesQuery = { __typename?: 'Query', GetAllCountries: { __typename?: 'CountryHttpList', countRows: number, countries: Array<{ __typename?: 'CountryHttp', name: string }> } };
+export type GetAllCountriesQuery = { __typename?: 'Query', GetAllCountries: { __typename?: 'CountryHttpList', countRows: number, countries: Array<{ __typename?: 'CountryHttp', id: string, name: string }> } };
 
 export type GetAllNominationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -650,21 +543,16 @@ export const SignInDocument = {"kind":"Document","definitions":[{"kind":"Operati
 export const SignUpDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignUp"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUp"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SignUp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Response"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]}}]} as unknown as DocumentNode<SignUpMutation, SignUpMutationVariables>;
 export const CreateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NewUser"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"CreateUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserHttp"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"fullNameNative"}}]}}]}}]}}]} as unknown as DocumentNode<CreateUserMutation, CreateUserMutationVariables>;
 export const SetUserIsActiveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetUserIsActive"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SetUserIsActive"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"isActive"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<SetUserIsActiveMutation, SetUserIsActiveMutationVariables>;
-export const ConfirmActivationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ConfirmActivation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activationLink"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ConfirmActivation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"activationLink"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activationLink"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SignInResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}}]}}]}}]}}]} as unknown as DocumentNode<ConfirmActivationMutation, ConfirmActivationMutationVariables>;
-export const ResetPasswordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetPassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"resetLink"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ResetPassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"resetLink"},"value":{"kind":"Variable","name":{"kind":"Name","value":"resetLink"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<ResetPasswordMutation, ResetPasswordMutationVariables>;
+export const ConfirmActivationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ConfirmActivation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activationToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ConfirmActivation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"activationToken"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activationToken"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SignInResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}}]}}]}}]}}]} as unknown as DocumentNode<ConfirmActivationMutation, ConfirmActivationMutationVariables>;
+export const ResetPasswordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetPassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"resetToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ResetPassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"resetToken"},"value":{"kind":"Variable","name":{"kind":"Name","value":"resetToken"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<ResetPasswordMutation, ResetPasswordMutationVariables>;
 export const SetActivationByLinkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetActivationByLink"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"activationByLink"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SetActivationByLink"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"activationByLink"},"value":{"kind":"Variable","name":{"kind":"Name","value":"activationByLink"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<SetActivationByLinkMutation, SetActivationByLinkMutationVariables>;
-export const UpdateProjectPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProjectPage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateProjectPage"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UpdateProjectPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateProjectPageMutation, UpdateProjectPageMutationVariables>;
-export const DeleteProjectPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteProjectPage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DeleteProjectPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<DeleteProjectPageMutation, DeleteProjectPageMutationVariables>;
 export const DeleteUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DeleteUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMutation, DeleteUserMutationVariables>;
-export const SetIsBannedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetIsBanned"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"projectPageId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isBanned"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SetIsBanned"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"projectPageId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"projectPageId"}}},{"kind":"Argument","name":{"kind":"Name","value":"isBanned"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isBanned"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<SetIsBannedMutation, SetIsBannedMutationVariables>;
 export const ForgotPasswordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ForgotPassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ForgotPassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<ForgotPasswordMutation, ForgotPasswordMutationVariables>;
 export const CreateApplicationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateApplication"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NewApplication"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"CreateApplication"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ApplicationHttp"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nomination"}}]}}]}}]}}]} as unknown as DocumentNode<CreateApplicationMutation, CreateApplicationMutationVariables>;
-export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetUserById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserHttp"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"fullNameNative"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"birthdate"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const ExportAllApplicationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ExportAllApplications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ExportAllApplications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ok"}}]}}]}}]} as unknown as DocumentNode<ExportAllApplicationsMutation, ExportAllApplicationsMutationVariables>;
+export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetUserById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserHttp"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"fullNameNative"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"hasRegions"}}]}},{"kind":"Field","name":{"kind":"Name","value":"birthdate"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
 export const GetAllUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUsers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"active"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roles"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Role"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetAllUsers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}},{"kind":"Argument","name":{"kind":"Name","value":"active"},"value":{"kind":"Variable","name":{"kind":"Name","value":"active"}}},{"kind":"Argument","name":{"kind":"Name","value":"roles"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roles"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"fullNameNative"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countRows"}}]}}]}}]} as unknown as DocumentNode<GetAllUsersQuery, GetAllUsersQueryVariables>;
-export const GetAllProjectPagesByAccessTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllProjectPagesByAccessToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetAllProjectPagesByAccessToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectPages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"isShared"}},{"kind":"Field","name":{"kind":"Name","value":"isBanned"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countRows"}}]}}]}}]} as unknown as DocumentNode<GetAllProjectPagesByAccessTokenQuery, GetAllProjectPagesByAccessTokenQueryVariables>;
 export const GetAllApplicationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllApplications"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetAllApplications"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"applications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authorId"}},{"kind":"Field","name":{"kind":"Name","value":"nomination"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countRows"}}]}}]}}]} as unknown as DocumentNode<GetAllApplicationsQuery, GetAllApplicationsQueryVariables>;
-export const GetAllProjectPagesByAuthorIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllProjectPagesByAuthorId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetAllProjectPagesByAuthorId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectPages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"isShared"}},{"kind":"Field","name":{"kind":"Name","value":"isBanned"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countRows"}}]}}]}}]} as unknown as DocumentNode<GetAllProjectPagesByAuthorIdQuery, GetAllProjectPagesByAuthorIdQueryVariables>;
-export const GetProjectPageByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProjectPageById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetProjectPageById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"authorId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"projectId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"instruction"}},{"kind":"Field","name":{"kind":"Name","value":"notes"}},{"kind":"Field","name":{"kind":"Name","value":"linkToScratch"}},{"kind":"Field","name":{"kind":"Name","value":"isShared"}},{"kind":"Field","name":{"kind":"Name","value":"isBanned"}},{"kind":"Field","name":{"kind":"Name","value":"projectUpdatedAt"}}]}}]}}]} as unknown as DocumentNode<GetProjectPageByIdQuery, GetProjectPageByIdQueryVariables>;
 export const GetApplicationByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetApplicationById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetApplicationById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"authorId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"nomination"}},{"kind":"Field","name":{"kind":"Name","value":"algorithmicTaskLink"}},{"kind":"Field","name":{"kind":"Name","value":"algorithmicTaskFile"}},{"kind":"Field","name":{"kind":"Name","value":"creativeTaskLink"}},{"kind":"Field","name":{"kind":"Name","value":"creativeTaskFile"}},{"kind":"Field","name":{"kind":"Name","value":"engineeringTaskFile"}},{"kind":"Field","name":{"kind":"Name","value":"engineeringTaskCloudLink"}},{"kind":"Field","name":{"kind":"Name","value":"engineeringTaskVideo"}},{"kind":"Field","name":{"kind":"Name","value":"engineeringTaskVideoCloudLink"}},{"kind":"Field","name":{"kind":"Name","value":"note"}}]}}]}}]} as unknown as DocumentNode<GetApplicationByIdQuery, GetApplicationByIdQueryVariables>;
-export const GetAllCountriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetAllCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countRows"}}]}}]}}]} as unknown as DocumentNode<GetAllCountriesQuery, GetAllCountriesQueryVariables>;
+export const GetAllCountriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetAllCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countRows"}}]}}]}}]} as unknown as DocumentNode<GetAllCountriesQuery, GetAllCountriesQueryVariables>;
 export const GetAllNominationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllNominations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"GetAllNominations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nominations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countRows"}}]}}]}}]} as unknown as DocumentNode<GetAllNominationsQuery, GetAllNominationsQueryVariables>;

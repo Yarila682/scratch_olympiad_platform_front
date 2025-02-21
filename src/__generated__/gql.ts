@@ -19,23 +19,18 @@ const documents = {
     "\n    mutation SignUp($input: SignUp!){\n        SignUp(input: $input) {\n            ... on Response{\n                    ok\n                }\n            }\n        }\n": types.SignUpDocument,
     "\n    mutation CreateUser($input: NewUser!){\n        CreateUser(input: $input) {\n            ... on UserHttp {\n                id\n                email\n                fullName\n                fullNameNative\n            }\n        }\n    }\n": types.CreateUserDocument,
     "\n    mutation SetUserIsActive($id: ID!, $isActive: Boolean!){\n        SetUserIsActive(id: $id, isActive: $isActive) {\n            ok\n        }\n    }\n": types.SetUserIsActiveDocument,
-    "\n    mutation ConfirmActivation($activationLink: String!){\n        ConfirmActivation(activationLink: $activationLink) {\n            ... on SignInResponse {\n                accessToken\n                refreshToken\n            }\n        }\n    }\n": types.ConfirmActivationDocument,
-    "\n    mutation ResetPassword($resetLink: String!){\n        ResetPassword(resetLink: $resetLink) {\n            ok\n        }\n    }\n": types.ResetPasswordDocument,
+    "\n    mutation ConfirmActivation($activationToken: String!){\n        ConfirmActivation(activationToken: $activationToken) {\n            ... on SignInResponse {\n                accessToken\n                refreshToken\n            }\n        }\n    }\n": types.ConfirmActivationDocument,
+    "\n    mutation ResetPassword($resetToken: String!){\n        ResetPassword(resetToken: $resetToken) {\n            ok\n        }\n    }\n": types.ResetPasswordDocument,
     "\n    mutation SetActivationByLink($activationByLink: Boolean!){\n        SetActivationByLink(activationByLink: $activationByLink) {\n            ok\n        }\n    }\n": types.SetActivationByLinkDocument,
-    "\n    mutation UpdateProjectPage($input: UpdateProjectPage!){\n        UpdateProjectPage(input: $input) {\n            id\n        }\n    }\n": types.UpdateProjectPageDocument,
-    "\n    mutation DeleteProjectPage($id: ID!){\n        DeleteProjectPage(id: $id) {\n            ok\n        }\n    }\n": types.DeleteProjectPageDocument,
     "\n    mutation DeleteUser($id: ID!){\n        DeleteUser(id: $id) {\n            ok\n        }\n    }\n": types.DeleteUserDocument,
-    "\n    mutation SetIsBanned($projectPageId: ID!, $isBanned: Boolean!){\n        SetIsBanned(projectPageId: $projectPageId, isBanned: $isBanned) {\n            ok\n        }\n    }\n": types.SetIsBannedDocument,
     "\n    mutation ForgotPassword($email: String!) {\n        ForgotPassword(email: $email) {\n            ok\n        }\n    }\n": types.ForgotPasswordDocument,
     "\n    mutation CreateApplication($input: NewApplication!){\n        CreateApplication(input: $input) {\n            ... on ApplicationHttp {\n                id\n                nomination\n            }\n        }\n    }\n": types.CreateApplicationDocument,
-    "\n    query GetUserById($id: ID!){\n        GetUserById(id: $id) {\n            ... on UserHttp {\n                id\n                email\n                fullName\n                fullNameNative\n                city\n                country\n                birthdate \n                createdAt\n                role\n                updatedAt\n                isActive\n            }\n        }\n    }\n": types.GetUserByIdDocument,
+    "\n  mutation ExportAllApplications {\n    ExportAllApplications {\n      ok\n    }\n  }\n": types.ExportAllApplicationsDocument,
+    "\n    query GetUserById($id: ID!){\n        GetUserById(id: $id) {\n            ... on UserHttp {\n                id\n                email\n                fullName\n                fullNameNative\n                city\n                country {\n                    id         \n                    name        \n                    hasRegions\n                }\n                birthdate \n                createdAt\n                role\n                updatedAt\n                isActive\n            }\n        }\n    }\n": types.GetUserByIdDocument,
     "\n    query GetAllUsers($page: Int, $pageSize: Int, $active: Boolean!, $roles: [Role!]!){\n        GetAllUsers(page: $page, pageSize: $pageSize, active: $active, roles: $roles) {\n            users {\n                id\n                email\n                fullName\n                fullNameNative\n            }\n            countRows\n        }\n    }\n": types.GetAllUsersDocument,
-    "\n    query GetAllProjectPagesByAccessToken($page: Int, $pageSize: Int){\n        GetAllProjectPagesByAccessToken(page: $page, pageSize: $pageSize) {\n            projectPages{\n                id\n                title\n                isShared\n                isBanned\n            }\n            countRows\n        }\n    }\n": types.GetAllProjectPagesByAccessTokenDocument,
     "\n    query GetAllApplications($page: Int, $pageSize: Int){\n        GetAllApplications(page: $page, pageSize: $pageSize) {\n            applications{\n                authorId\n                nomination\n                id\n            }\n            countRows\n        }\n    }\n": types.GetAllApplicationsDocument,
-    "\n    query GetAllProjectPagesByAuthorId($id: ID!, $page: Int, $pageSize: Int){\n        GetAllProjectPagesByAuthorId(id: $id, page: $page, pageSize: $pageSize) {\n            projectPages{\n                id\n                title\n                isShared\n                isBanned\n            }\n            countRows\n        }\n    }\n": types.GetAllProjectPagesByAuthorIdDocument,
-    "\n    query GetProjectPageById($id: ID!){\n        GetProjectPageById(id: $id) {\n            id\n            authorId\n            createdAt\n            updatedAt\n            projectId\n            title\n            instruction\n            notes\n            linkToScratch\n            isShared\n            isBanned\n            projectUpdatedAt\n        }\n    }\n": types.GetProjectPageByIdDocument,
     "\n    query GetApplicationById($id: ID!){\n        GetApplicationById(id: $id) {\n            id\n            authorId\n            createdAt\n            updatedAt\n            nomination\n            algorithmicTaskLink\n            algorithmicTaskFile\n            creativeTaskLink\n            creativeTaskFile\n            engineeringTaskFile\n            engineeringTaskCloudLink\n            engineeringTaskVideo\n            engineeringTaskVideoCloudLink\n            note\n        }\n    }\n": types.GetApplicationByIdDocument,
-    "\n  query GetAllCountries {\n  GetAllCountries {\n    countries {\n      name\n    }\n    countRows\n  }\n}\n": types.GetAllCountriesDocument,
+    "\n  query GetAllCountries {\n  GetAllCountries {\n    countries {\n      id\n      name\n    }\n    countRows\n  }\n}\n": types.GetAllCountriesDocument,
     "\n  query GetAllNominations {\n  GetAllNominations {\n    nominations {\n      name\n    }\n    countRows\n  }\n}\n": types.GetAllNominationsDocument,
 };
 
@@ -80,11 +75,11 @@ export function gql(source: "\n    mutation SetUserIsActive($id: ID!, $isActive:
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    mutation ConfirmActivation($activationLink: String!){\n        ConfirmActivation(activationLink: $activationLink) {\n            ... on SignInResponse {\n                accessToken\n                refreshToken\n            }\n        }\n    }\n"): (typeof documents)["\n    mutation ConfirmActivation($activationLink: String!){\n        ConfirmActivation(activationLink: $activationLink) {\n            ... on SignInResponse {\n                accessToken\n                refreshToken\n            }\n        }\n    }\n"];
+export function gql(source: "\n    mutation ConfirmActivation($activationToken: String!){\n        ConfirmActivation(activationToken: $activationToken) {\n            ... on SignInResponse {\n                accessToken\n                refreshToken\n            }\n        }\n    }\n"): (typeof documents)["\n    mutation ConfirmActivation($activationToken: String!){\n        ConfirmActivation(activationToken: $activationToken) {\n            ... on SignInResponse {\n                accessToken\n                refreshToken\n            }\n        }\n    }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    mutation ResetPassword($resetLink: String!){\n        ResetPassword(resetLink: $resetLink) {\n            ok\n        }\n    }\n"): (typeof documents)["\n    mutation ResetPassword($resetLink: String!){\n        ResetPassword(resetLink: $resetLink) {\n            ok\n        }\n    }\n"];
+export function gql(source: "\n    mutation ResetPassword($resetToken: String!){\n        ResetPassword(resetToken: $resetToken) {\n            ok\n        }\n    }\n"): (typeof documents)["\n    mutation ResetPassword($resetToken: String!){\n        ResetPassword(resetToken: $resetToken) {\n            ok\n        }\n    }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -92,19 +87,7 @@ export function gql(source: "\n    mutation SetActivationByLink($activationByLin
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    mutation UpdateProjectPage($input: UpdateProjectPage!){\n        UpdateProjectPage(input: $input) {\n            id\n        }\n    }\n"): (typeof documents)["\n    mutation UpdateProjectPage($input: UpdateProjectPage!){\n        UpdateProjectPage(input: $input) {\n            id\n        }\n    }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n    mutation DeleteProjectPage($id: ID!){\n        DeleteProjectPage(id: $id) {\n            ok\n        }\n    }\n"): (typeof documents)["\n    mutation DeleteProjectPage($id: ID!){\n        DeleteProjectPage(id: $id) {\n            ok\n        }\n    }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
 export function gql(source: "\n    mutation DeleteUser($id: ID!){\n        DeleteUser(id: $id) {\n            ok\n        }\n    }\n"): (typeof documents)["\n    mutation DeleteUser($id: ID!){\n        DeleteUser(id: $id) {\n            ok\n        }\n    }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n    mutation SetIsBanned($projectPageId: ID!, $isBanned: Boolean!){\n        SetIsBanned(projectPageId: $projectPageId, isBanned: $isBanned) {\n            ok\n        }\n    }\n"): (typeof documents)["\n    mutation SetIsBanned($projectPageId: ID!, $isBanned: Boolean!){\n        SetIsBanned(projectPageId: $projectPageId, isBanned: $isBanned) {\n            ok\n        }\n    }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -116,7 +99,11 @@ export function gql(source: "\n    mutation CreateApplication($input: NewApplica
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    query GetUserById($id: ID!){\n        GetUserById(id: $id) {\n            ... on UserHttp {\n                id\n                email\n                fullName\n                fullNameNative\n                city\n                country\n                birthdate \n                createdAt\n                role\n                updatedAt\n                isActive\n            }\n        }\n    }\n"): (typeof documents)["\n    query GetUserById($id: ID!){\n        GetUserById(id: $id) {\n            ... on UserHttp {\n                id\n                email\n                fullName\n                fullNameNative\n                city\n                country\n                birthdate \n                createdAt\n                role\n                updatedAt\n                isActive\n            }\n        }\n    }\n"];
+export function gql(source: "\n  mutation ExportAllApplications {\n    ExportAllApplications {\n      ok\n    }\n  }\n"): (typeof documents)["\n  mutation ExportAllApplications {\n    ExportAllApplications {\n      ok\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query GetUserById($id: ID!){\n        GetUserById(id: $id) {\n            ... on UserHttp {\n                id\n                email\n                fullName\n                fullNameNative\n                city\n                country {\n                    id         \n                    name        \n                    hasRegions\n                }\n                birthdate \n                createdAt\n                role\n                updatedAt\n                isActive\n            }\n        }\n    }\n"): (typeof documents)["\n    query GetUserById($id: ID!){\n        GetUserById(id: $id) {\n            ... on UserHttp {\n                id\n                email\n                fullName\n                fullNameNative\n                city\n                country {\n                    id         \n                    name        \n                    hasRegions\n                }\n                birthdate \n                createdAt\n                role\n                updatedAt\n                isActive\n            }\n        }\n    }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -124,19 +111,7 @@ export function gql(source: "\n    query GetAllUsers($page: Int, $pageSize: Int,
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    query GetAllProjectPagesByAccessToken($page: Int, $pageSize: Int){\n        GetAllProjectPagesByAccessToken(page: $page, pageSize: $pageSize) {\n            projectPages{\n                id\n                title\n                isShared\n                isBanned\n            }\n            countRows\n        }\n    }\n"): (typeof documents)["\n    query GetAllProjectPagesByAccessToken($page: Int, $pageSize: Int){\n        GetAllProjectPagesByAccessToken(page: $page, pageSize: $pageSize) {\n            projectPages{\n                id\n                title\n                isShared\n                isBanned\n            }\n            countRows\n        }\n    }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
 export function gql(source: "\n    query GetAllApplications($page: Int, $pageSize: Int){\n        GetAllApplications(page: $page, pageSize: $pageSize) {\n            applications{\n                authorId\n                nomination\n                id\n            }\n            countRows\n        }\n    }\n"): (typeof documents)["\n    query GetAllApplications($page: Int, $pageSize: Int){\n        GetAllApplications(page: $page, pageSize: $pageSize) {\n            applications{\n                authorId\n                nomination\n                id\n            }\n            countRows\n        }\n    }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n    query GetAllProjectPagesByAuthorId($id: ID!, $page: Int, $pageSize: Int){\n        GetAllProjectPagesByAuthorId(id: $id, page: $page, pageSize: $pageSize) {\n            projectPages{\n                id\n                title\n                isShared\n                isBanned\n            }\n            countRows\n        }\n    }\n"): (typeof documents)["\n    query GetAllProjectPagesByAuthorId($id: ID!, $page: Int, $pageSize: Int){\n        GetAllProjectPagesByAuthorId(id: $id, page: $page, pageSize: $pageSize) {\n            projectPages{\n                id\n                title\n                isShared\n                isBanned\n            }\n            countRows\n        }\n    }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n    query GetProjectPageById($id: ID!){\n        GetProjectPageById(id: $id) {\n            id\n            authorId\n            createdAt\n            updatedAt\n            projectId\n            title\n            instruction\n            notes\n            linkToScratch\n            isShared\n            isBanned\n            projectUpdatedAt\n        }\n    }\n"): (typeof documents)["\n    query GetProjectPageById($id: ID!){\n        GetProjectPageById(id: $id) {\n            id\n            authorId\n            createdAt\n            updatedAt\n            projectId\n            title\n            instruction\n            notes\n            linkToScratch\n            isShared\n            isBanned\n            projectUpdatedAt\n        }\n    }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -144,7 +119,7 @@ export function gql(source: "\n    query GetApplicationById($id: ID!){\n        
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetAllCountries {\n  GetAllCountries {\n    countries {\n      name\n    }\n    countRows\n  }\n}\n"): (typeof documents)["\n  query GetAllCountries {\n  GetAllCountries {\n    countries {\n      name\n    }\n    countRows\n  }\n}\n"];
+export function gql(source: "\n  query GetAllCountries {\n  GetAllCountries {\n    countries {\n      id\n      name\n    }\n    countRows\n  }\n}\n"): (typeof documents)["\n  query GetAllCountries {\n  GetAllCountries {\n    countries {\n      id\n      name\n    }\n    countRows\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

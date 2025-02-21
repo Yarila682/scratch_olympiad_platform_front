@@ -7,10 +7,8 @@ import CookieConsent from './components/CookieConsent';
 import LoginPage from '@/pages/Login';
 import LogoutPage from '@/pages/Logout';
 import ProfilePage from '@/pages/Profile';
-import ProjectsPage from '@/pages/Projects';
 import StudentsPage from '@/pages/Students';
 import SettingsPage from '@/pages/Settings';
-import ProjectPage from '@/pages/ProjectPage';
 import ApplicationPage from './pages/ApplicationPage';
 import ActivationPage from '@/pages/Activation';
 import ResetPage from '@/pages/Reset'
@@ -27,8 +25,6 @@ import {
     LOGIN_PAGE_ROUTE,
     LOGOUT_PAGE_ROUTE,
     PROFILE_PAGE_ROUTE,
-    PROJECTS_PAGE_ROUTE,
-    PROJECT_PAGE_ROUTE,
     STUDENTS_PAGE_ROUTE,
     APPLICATIONS_PAGE_ROUTE,
     APPLICATION_CREATION_PAGE_ROUTE,
@@ -73,14 +69,6 @@ function App() {
                                 }
                             />
                             <Route
-                                path={PROJECTS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
-                                        <ProjectsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
                                 path={APPLICATIONS_PAGE_ROUTE}
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
@@ -101,14 +89,6 @@ function App() {
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
                                         <SettingsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={PROJECT_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
-                                        <ProjectPage />
                                     </ProtectedRoute>
                                 }
                             />
