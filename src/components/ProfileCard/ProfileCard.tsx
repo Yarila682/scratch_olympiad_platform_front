@@ -68,14 +68,14 @@ function ProfileCard({
                     query: GET_ALL_USERS,
                     variables: {
                         active: true,
-                        roles: [Role.Student],
+                        roles: [Role.User],
                     },
                 } as QueryOptions<{ active: boolean, roles: Role[] }>,
                 {
                     query: GET_ALL_USERS,
                     variables: {
                         active: false,
-                        roles: [Role.Student],
+                        roles: [Role.User],
                     },
                 } as QueryOptions<{ active: boolean, roles: Role[] }>
             ]
@@ -95,7 +95,7 @@ function ProfileCard({
                                 fullName: inputs.fullName,
                                 fullNameNative: inputs.fullNameNative,
                                 city: inputs.city,
-                                country: inputs.country,
+                                countryId: inputs.countryId,
                                 birthdate: inputs.birthdate,
                             }
                         }
@@ -108,7 +108,7 @@ function ProfileCard({
                     fullName: profileData?.fullName,
                     fullNameNative: profileData?.fullNameNative,
                     city: profileData?.city,
-                    country: profileData?.country,
+                    country: profileData?.country?.name,
                     birthdate: profileData?.birthdate,
                 }}
             >

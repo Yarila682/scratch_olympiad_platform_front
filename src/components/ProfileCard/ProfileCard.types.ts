@@ -18,6 +18,6 @@ export interface ProfileFormInputs {
     fullName: string;
     fullNameNative: string;
     city: string;
-    country: string;
+    countryId: string;
     birthdate: string;
 }

@@ -23,7 +23,7 @@ function NavMenu() {
     case Role.SuperAdmin as string:
       menuItems = NavMenuItemsSuperAdmin;
       break;
-    case Role.Student as string:
+    case Role.User as string:
       menuItems = NavMenuItemsStudent;
       break;
     default:

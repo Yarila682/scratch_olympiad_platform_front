@@ -55,26 +55,9 @@ export const SET_USER_IS_ACTIVE = gql`
     }
 `;
 
-export const CREATE_PROJECT_PAGE = gql`
-    mutation {
-        CreateProjectPage{
-            id
-            createdAt
-            updatedAt
-            authorId
-            projectId
-            projectUpdatedAt
-            title
-            notes
-            linkToScratch
-            isShared
-        }
-    }
-`;
-
 export const CONFIRM_ACTIVATION = gql`
-    mutation ConfirmActivation($activationLink: String!){
-        ConfirmActivation(activationLink: $activationLink) {
+    mutation ConfirmActivation($activationToken: String!){
+        ConfirmActivation(activationToken: $activationToken) {
             ... on SignInResponse {
                 accessToken
                 refreshToken
@@ -84,8 +67,8 @@ export const CONFIRM_ACTIVATION = gql`
 `;
 
 export const RESET_PASSWORD = gql`
-    mutation ResetPassword($resetLink: String!){
-        ResetPassword(resetLink: $resetLink) {
+    mutation ResetPassword($resetToken: String!){
+        ResetPassword(resetToken: $resetToken) {
             ok
         }
     }
@@ -99,33 +82,9 @@ export const SET_ACTIVATION_BY_LINK = gql`
     }
 `;
 
-export const UPDATE_PROJECT_PAGE = gql`
-    mutation UpdateProjectPage($input: UpdateProjectPage!){
-        UpdateProjectPage(input: $input) {
-            id
-        }
-    }
-`;
-
-export const DELETE_PROJECT_PAGE = gql`
-    mutation DeleteProjectPage($id: ID!){
-        DeleteProjectPage(id: $id) {
-            ok
-        }
-    }
-`;
-
 export const DELETE_USER = gql`
     mutation DeleteUser($id: ID!){
         DeleteUser(id: $id) {
-            ok
-        }
-    }
-`;
-
-export const SET_IS_BANNED = gql`
-    mutation SetIsBanned($projectPageId: ID!, $isBanned: Boolean!){
-        SetIsBanned(projectPageId: $projectPageId, isBanned: $isBanned) {
             ok
         }
     }

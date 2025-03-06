@@ -9,7 +9,11 @@ export const GET_USER_BY_ID = gql`
                 fullName
                 fullNameNative
                 city
-                country
+                country {
+                    id         
+                    name        
+                    hasRegions
+                }
                 birthdate 
                 createdAt
                 role
@@ -29,7 +33,11 @@ export const ME = gql`
                 fullName
                 fullNameNative
                 city
-                country
+                country {
+                    id          
+                    name        
+                    hasRegions  
+                }
                 birthdate 
                 createdAt
                 role
@@ -54,20 +62,6 @@ export const GET_ALL_USERS = gql`
     }
 `;
 
-export const GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN = gql`
-    query GetAllProjectPagesByAccessToken($page: Int, $pageSize: Int){
-        GetAllProjectPagesByAccessToken(page: $page, pageSize: $pageSize) {
-            projectPages{
-                id
-                title
-                isShared
-                isBanned
-            }
-            countRows
-        }
-    }
-`;
-
 export const GET_ALL_APPLICATIONS = gql`
     query GetAllApplications($page: Int, $pageSize: Int){
         GetAllApplications(page: $page, pageSize: $pageSize) {
@@ -77,39 +71,6 @@ export const GET_ALL_APPLICATIONS = gql`
                 id
             }
             countRows
-        }
-    }
-`;
-
-export const GET_ALL_PROJECT_PAGES_BY_AUTHOR_ID = gql`
-    query GetAllProjectPagesByAuthorId($id: ID!, $page: Int, $pageSize: Int){
-        GetAllProjectPagesByAuthorId(id: $id, page: $page, pageSize: $pageSize) {
-            projectPages{
-                id
-                title
-                isShared
-                isBanned
-            }
-            countRows
-        }
-    }
-`;
-
-export const GET_PROJECT_PAGE_BY_ID = gql`
-    query GetProjectPageById($id: ID!){
-        GetProjectPageById(id: $id) {
-            id
-            authorId
-            createdAt
-            updatedAt
-            projectId
-            title
-            instruction
-            notes
-            linkToScratch
-            isShared
-            isBanned
-            projectUpdatedAt
         }
     }
 `;
@@ -147,6 +108,7 @@ export const GET_COUNTRIES = gql`
   query GetAllCountries {
   GetAllCountries {
     countries {
+      id
       name
     }
     countRows
