@@ -7,7 +7,7 @@ import {
 
 import {
     APP_SETTINGS_PAGE_ROUTE,
-    MAIN_PAGE_ROUTE, PROJECTS_PAGE_ROUTE, STUDENTS_PAGE_ROUTE, APPLICATIONS_PAGE_ROUTE
+    MAIN_PAGE_ROUTE, PROJECTS_PAGE_ROUTE, STUDENTS_PAGE_ROUTE, APPLICATIONS_PAGE_ROUTE,EVENTS_PAGE_ROUTE
 } from '@/consts';
 import { NavMenuItem } from './NavMenu.types';
 
@@ -70,6 +70,12 @@ export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
         key: '5',
         path: APP_SETTINGS_PAGE_ROUTE,
         label: 'Settings',
+        icon: <SettingOutlined />
+    },
+    {
+        key: '6',
+        path: EVENTS_PAGE_ROUTE,
+        label: 'Events',
         icon: <SettingOutlined />
     },
 ];

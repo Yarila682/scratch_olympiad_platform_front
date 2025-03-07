@@ -17,6 +17,12 @@ import ApplicationCreationPage from './pages/ApplicationCreation';
 import UserAgreementPage from './pages/UserAgreement';
 import PersonalDataProcessingPage from './pages/PersonalDataProcessing';
 import HomePage from './pages/HomePage';
+
+import EventPage from './pages/EventPage';
+import EventsPage from './pages/Events';
+
+
+
 import {
     MAIN_PAGE_ROUTE,
     ACTIVATION_PAGE_ROUTE,
@@ -31,12 +37,15 @@ import {
     USER_AGREEMENT_PAGE_ROUTE,
     PERSONAL_DATA_PROCESSING_ROUTE,
     APPLICATION_PAGE_ROUTE,
+    EVENTS_PAGE_ROUTE,
+    EVENT_CREATION_PAGE_ROUTE
 } from '@/consts';
 import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
 import { Roles, Themes } from '@/models';
 import { graphqlClient } from '@/graphql/client';
 import ProtectedRoute from '@/hocs/ProtectedRoute';
+import EventCreationPage from './pages/EventCreation';
 
 function App() {
     //console.log(process.env.MODE)
@@ -65,6 +74,15 @@ function App() {
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ProfilePage />
+                                    </ProtectedRoute>
+                                }
+                            />
+                         
+                               <Route
+                                path={EVENTS_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
+                                        <EventsPage />
                                     </ProtectedRoute>
                                 }
                             />
@@ -100,6 +118,7 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             />
+                         
                             <Route
                                 path={ACTIVATION_PAGE_ROUTE}
                                 element={<ActivationPage />}
@@ -113,6 +132,15 @@ function App() {
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
                                         <ApplicationCreationPage />
+                                    </ProtectedRoute>
+                                }
+                            />
+
+<Route
+                                path={EVENT_CREATION_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
+                                        <EventCreationPage />
                                     </ProtectedRoute>
                                 }
                             />

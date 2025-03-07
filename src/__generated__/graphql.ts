@@ -89,22 +89,50 @@ export enum EventRole {
   Organizer = 'Organizer'
 }
 
+export type EventRoleList = {
+  __typename?: 'EventRoleList';
+  roles: Array<EventRole>;
+};
+
+export type EventTranslationHttp = {
+  __typename?: 'EventTranslationHttp';
+  createdAt: Scalars['Timestamp']['output'];
+  description: Scalars['String']['output'];
+  eventId: Scalars['ID']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['Timestamp']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   ConfirmActivation: SignInResponse;
   CreateApplication: ApplicationHttp;
   CreateEvent: EventDetailsHttp;
+  CreateEventTranslation: EventTranslationHttp;
   CreateUser: UserHttp;
+  DeleteEventTranslation: Response;
   DeleteUser: Response;
   ExportAllApplications: Response;
   ForgotPassword: Response;
   RefreshToken: SignInResponse;
   ResetPassword: Response;
   SetActivationByLink: Response;
+  SetCountryForEvent: Response;
+  SetExpertForEvent: Response;
+  SetModeratorForEvent: Response;
+  SetOrganizerForEvent: Response;
+  SetRegionForEvent: Response;
   SetUserIsActive: Response;
   SignIn: SignInResponse;
   SignUp: Response;
+  UnsetCountryForEvent: Response;
+  UnsetExpertForEvent: Response;
+  UnsetModeratorForEvent: Response;
+  UnsetOrganizerForEvent: Response;
+  UnsetRegionForEvent: Response;
   UpdateEvent: EventDetailsHttp;
+  UpdateEventTranslation: EventTranslationHttp;
   UpdateUser: UserHttp;
 };
 
@@ -124,8 +152,18 @@ export type MutationCreateEventArgs = {
 };
 
 
+export type MutationCreateEventTranslationArgs = {
+  input: NewEventTranslation;
+};
+
+
 export type MutationCreateUserArgs = {
   input: NewUser;
+};
+
+
+export type MutationDeleteEventTranslationArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -154,6 +192,36 @@ export type MutationSetActivationByLinkArgs = {
 };
 
 
+export type MutationSetCountryForEventArgs = {
+  countryId: Scalars['ID']['input'];
+  eventId: Scalars['ID']['input'];
+};
+
+
+export type MutationSetExpertForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
+export type MutationSetModeratorForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
+export type MutationSetOrganizerForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
+export type MutationSetRegionForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  regionId: Scalars['ID']['input'];
+};
+
+
 export type MutationSetUserIsActiveArgs = {
   id: Scalars['ID']['input'];
   isActive: Scalars['Boolean']['input'];
@@ -170,8 +238,43 @@ export type MutationSignUpArgs = {
 };
 
 
+export type MutationUnsetCountryForEventArgs = {
+  countryId: Scalars['ID']['input'];
+  eventId: Scalars['ID']['input'];
+};
+
+
+export type MutationUnsetExpertForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
+export type MutationUnsetModeratorForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
+export type MutationUnsetOrganizerForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
+export type MutationUnsetRegionForEventArgs = {
+  eventId: Scalars['ID']['input'];
+  regionId: Scalars['ID']['input'];
+};
+
+
 export type MutationUpdateEventArgs = {
   input: UpdateEvent;
+};
+
+
+export type MutationUpdateEventTranslationArgs = {
+  input: UpdateEventTranslation;
 };
 
 
@@ -197,6 +300,12 @@ export type NewEvent = {
   endDate: Scalars['Timestamp']['input'];
   name: Scalars['String']['input'];
   startDate: Scalars['Timestamp']['input'];
+};
+
+export type NewEventTranslation = {
+  description: Scalars['String']['input'];
+  eventId: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type NewUser = {
@@ -249,6 +358,8 @@ export type Query = {
   GetAllUsers: UsersList;
   GetApplicationById: ApplicationHttp;
   GetEventById: EventDetailsHttp;
+  GetEventRolesByAccessToken: EventRoleList;
+  GetEventTranslationByEventId: EventTranslationHttp;
   GetRegionsByCountryId: RegionHttpList;
   GetSettings: Settings;
   GetUserByAccessToken: UserHttp;
@@ -296,6 +407,16 @@ export type QueryGetApplicationByIdArgs = {
 
 export type QueryGetEventByIdArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetEventRolesByAccessTokenArgs = {
+  eventId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetEventTranslationByEventIdArgs = {
+  eventId: Scalars['ID']['input'];
 };
 
 
@@ -368,6 +489,12 @@ export type UpdateEvent = {
   id: Scalars['ID']['input'];
   name: Scalars['String']['input'];
   startDate: Scalars['Timestamp']['input'];
+};
+
+export type UpdateEventTranslation = {
+  description: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type UpdateUser = {

@@ -116,3 +116,17 @@ export const EXPORT_ALL_APPLICATIONS = gql`
     }
   }
 `;
+
+export const CREATE_EVENT = gql`
+    mutation CreateEvent($input: NewEvent!){
+     CreateEvent(input: $input) {
+            ... on EventDetailsHttp {
+                id
+                name
+                description
+                startDate
+                endDate
+            }
+        }
+    }
+`;

@@ -41,7 +41,7 @@ function CreateUser({ role, refetchQueries }: CreateUserProps) {
                     fullNameNative: inputs.fullNameNative,
                     role: role,
                     city: inputs.city,
-                    country: inputs.country,
+                    countryId: inputs.country,
                     birthdate: inputs.birthdate,
                 }
             }
