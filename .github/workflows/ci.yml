@@ -8,6 +8,7 @@ on:
     branches: [ "events" ]
   pull_request:
     branches: [ "events" ]
+  workflow_dispatch:
 
 jobs:
   build:
