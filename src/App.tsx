@@ -38,7 +38,8 @@ import {
     PERSONAL_DATA_PROCESSING_ROUTE,
     APPLICATION_PAGE_ROUTE,
     EVENTS_PAGE_ROUTE,
-    EVENT_CREATION_PAGE_ROUTE
+    EVENT_CREATION_PAGE_ROUTE,
+    EVENT_PAGE_ROUTE
 } from '@/consts';
 import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
@@ -118,6 +119,16 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             />
+
+                            <Route
+                                path={EVENT_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.User]}>
+                                        <EventPage />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            
                          
                             <Route
                                 path={ACTIVATION_PAGE_ROUTE}

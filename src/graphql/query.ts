@@ -126,3 +126,35 @@ export const GET_NOMINATIONS = gql`
   }
 }
 `;
+
+
+
+export const GET_ALL_EVENTS = gql`
+    query GetAllEvents($page: Int, $pageSize: Int){
+        GetAllEvents(page: $page, pageSize: $pageSize) {
+            events{
+                 endDate
+                 name
+                 startDate
+                id
+            }
+            countRows
+        }
+    }
+`;
+
+
+export const GET_EVENT_BY_ID = gql`
+  query GetEventById($id: ID!) {
+    GetEventById(id: $id) {
+      ... on EventDetailsHttp {
+        id
+        name
+        startDate
+        endDate
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;

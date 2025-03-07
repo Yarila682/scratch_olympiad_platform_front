@@ -15,4 +15,6 @@ export const USER_AGREEMENT_PAGE_ROUTE = '/user-agreement'
 export const PERSONAL_DATA_PROCESSING_ROUTE = '/personal-data-processing'
 export const EVENTS_PAGE_ROUTE = '/events'
 export const EVENT_CREATION_PAGE_ROUTE = '/new-event'
+export const EVENT_PAGE_ROUTE = '/event/:id'
+
 

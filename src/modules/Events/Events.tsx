@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import { ApplicationHttp, ApplicationHttpList } from "@/__generated__/graphql";
-import ApplicationsList from "@/components/ApplicationsList";
-import { GET_ALL_APPLICATIONS } from "@/graphql/query";
-import { EXPORT_ALL_APPLICATIONS } from "@/graphql/mutations";
+import { EventDetailsHttp, EventHttpList } from "@/__generated__/graphql";
+import EventsList from "@/components/EventsList";
+import { GET_ALL_APPLICATIONS, GET_ALL_EVENTS } from "@/graphql/query";
 import { withPaginationUrl } from "@/hocs";
 import { handlingGraphqlErrors } from "@/utils";
 import { useMutation, useQuery } from "@apollo/client";
@@ -24,8 +23,8 @@ function EventsModule() {
 
 
 
-    const { loading, data } = useQuery<{ GetAllApplications: ApplicationHttpList }, { page?: number, pageSize?: number }>(
-        GET_ALL_APPLICATIONS,
+    const { loading, data } = useQuery<{ GetAllEvents: EventHttpList }, { page?: number, pageSize?: number }>(
+        GET_ALL_EVENTS,
         {
             onError: (error) => {
                 handlingGraphqlErrors(error)
@@ -33,7 +32,7 @@ function EventsModule() {
         }
     );
 
-    const ApplicationList = withPaginationUrl(ApplicationsList, 10);
+    const EventList = withPaginationUrl(EventsList, 10);
 
     return (
         <>
@@ -45,8 +44,8 @@ function EventsModule() {
                 {'New Event'}
             </Button>
          
-            <ApplicationList
-                data={data?.GetAllApplications}
+            <EventList
+                data={data?.GetAllEvents}
                 loading={loading}
                 removal
             />
